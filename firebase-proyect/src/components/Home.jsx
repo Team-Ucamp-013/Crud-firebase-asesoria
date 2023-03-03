@@ -9,6 +9,7 @@ function Home(){
             <Link to={'/'}>Home</Link>
         </nav>
         <h1>Hola Mundo, este es mi primer componente</h1>
+      
         </>
     )
 }

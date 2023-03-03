@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../Firebase/firebase";
-import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 function Reserva(){
     
@@ -30,6 +30,13 @@ function Reserva(){
         getUsers();
      }
 
+     const incrementarMesa= async(id,mesa)=>{
+       const userDoc = doc(db,'reservaciones',id)
+        const newField = {mesa: mesa + 1}
+       await updateDoc(userDoc,newField)
+       getUsers();
+     }
+
      useEffect(()=>{
      getUsers();
      },[]); 
@@ -53,6 +60,7 @@ function Reserva(){
                     <h1>Correo: {item.correo}</h1>
                     <h1>Mesa: {item.mesa}</h1>
                     <button onClick={() => borrarUsuario(item.id)}>X</button>
+                    <button onClick={() =>incrementarMesa(item.id,item.mesa)}>Incrementar número de asistentes</button>
                 </div>
             )
         })} 
